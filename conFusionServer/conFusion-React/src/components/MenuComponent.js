@@ -8,7 +8,7 @@ import Header from './HeaderComponent';
 function RenderMenuItem ({dish}){
     return (
         <Card>
-            <Link to={`/home/${dish.id}`} >
+            <Link to={`/home/${dish._id}`} >
                 <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
                 <CardImgOverlay>
                     <CardTitle style={{color:"white"}}>{dish.name}</CardTitle>
@@ -43,7 +43,7 @@ class Menu extends Component{
         
         const menu = filteredDishes.map((dish) => {
             return (
-                <div className="col-12 col-md-5 m-1" key={dish.id}>
+                <div className="col-12 col-md-5 m-1" key={dish._id}>
                     <RenderMenuItem dish={dish}/>
                 </div>
             );

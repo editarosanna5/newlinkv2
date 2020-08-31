@@ -125,7 +125,7 @@ function RenderComments({comments,postComment, dishId}) {
     let returnedComm = comments.map(comment => {
         return (
             <Fade in>
-                <li key={comment.id}>
+                <li key={comment._id}>
                     <p>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                     <StarRatingComponent name="rating" editing={false} starCount={5} value={comment.rating}/>
                     <p style={{fontStyle:"italic"}}>"{comment.comment}"</p>    
@@ -207,7 +207,7 @@ const DishDetail = (props) => {
                         <p style={{textAlign:"center"}} id="padatMal">Kepadatan Mal (%)</p>
                         <RenderComments comments = {props.comments}
                             postComment={props.postComment}
-                            dishId={props.dish.id}/> 
+                            dishId={props.dish._id}/> 
                     </div>
                 </div>
             </div>

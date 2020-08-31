@@ -6,10 +6,6 @@ const commentSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Dish'
     },
-    name: {
-        type: String,
-        required: true
-    },
     rating: {
         type: Number,
         required: true,
@@ -28,6 +24,6 @@ const commentSchema = new Schema({
     timestamps: true
 });
 
-var Leaders = mongoose.model('Leader', leaderSchema);
+var Comments = mongoose.model('Comment', commentSchema);
 
-module.exports = Leaders;
+module.exports = Comments;
