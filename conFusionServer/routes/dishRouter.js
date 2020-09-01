@@ -5,7 +5,7 @@ var authenticate = require('../authenticate');
 const cors = require('./cors');
 
 const Dishes = require('../models/dishes');
-const Comments = require('../models/comments');
+//const Comments = require('../models/comments');
 
 const dishRouter = express.Router();
 
@@ -14,8 +14,8 @@ dishRouter.use(bodyParser.json());
 dishRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
 .get(cors.cors, (req,res,next) => {
-    Dishes.find({})
-    //.populate('comments.dishId')
+    Dishes.find(req.query)
+    .populate('comments.dishId')
     .then((dishes) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -54,7 +54,7 @@ dishRouter.route('/:dishId')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
 .get(cors.cors, (req,res,next) => {
     Dishes.findById(req.params.dishId)
-    .populate('comments.dishId')
+    //.populate('comments.dishId')
     .then((dish) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -64,7 +64,9 @@ dishRouter.route('/:dishId')
 })
 //.post(authenticate.verifyUser, (req, res, next) => {
 .post(cors.corsWithOptions, (req, res, next) => {
-    if (req.body != null) {
+    res.statusCode = 403;
+    res.end('POST not supported');
+    /*if (req.body != null) {
         req.body.dishId = req.params.dishId;
         Comments.create(req.body)
         .then((comment) => {
@@ -78,7 +80,7 @@ dishRouter.route('/:dishId')
         err = new Error('Comment not found in request body');
         err.statusCode = 404;
         return next(err);
-    }
+    }*/
 })
 //.put(authenticate.verifyUser, (req, res, next) => {
 .put(cors.corsWithOptions, (req, res, next) => {

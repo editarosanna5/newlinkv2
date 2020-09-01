@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishRouter');
 var feedbackRouter = require('./routes/feedbackRouter');
 var howtouseRouter = require('./routes/howtouseRouter');
+var commentRouter = require('./routes/commentRouter');
 var config = require('./config');
 
 const mongoose = require('mongoose');
@@ -60,6 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/home', dishRouter);
 app.use('/howtouse', howtouseRouter);
 app.use('/contactus', feedbackRouter);
+app.use('/comments', commentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -3,6 +3,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, Button, Modal, ModalHeade
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { reactBaseUrl } from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import Header from './HeaderComponent';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -122,11 +123,12 @@ function RenderDish({dish}) {
 }
 
 function RenderComments({comments,postComment, dishId}) {
+    
     let returnedComm = comments.map(comment => {
         return (
             <Fade in>
                 <li key={comment._id}>
-                    <p>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                    <p>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.createdAt)))}</p>
                     <StarRatingComponent name="rating" editing={false} starCount={5} value={comment.rating}/>
                     <p style={{fontStyle:"italic"}}>"{comment.comment}"</p>    
                 </li>
@@ -176,6 +178,7 @@ const DishDetail = (props) => {
         let sizeText="";
         if(percentage<=40){
             imgUrl="assets/images/safe.png";
+            //imgUrl="/images/safe.png";
             colorPath="#00e640";
         } else if (percentage>40 && percentage<=75) {
             imgUrl="assets/images/moderate.png";
@@ -202,7 +205,7 @@ const DishDetail = (props) => {
                                 pathColor: colorPath,
                                 textColor: colorPath,
                              })}/>
-                            <img src={baseUrl + imgUrl} alt="percentage" id="imgPercentage"/>
+                            <img src={reactBaseUrl + imgUrl} alt="percentage" id="imgPercentage"/>
                         </div>
                         <p style={{textAlign:"center"}} id="padatMal">Kepadatan Mal (%)</p>
                         <RenderComments comments = {props.comments}
